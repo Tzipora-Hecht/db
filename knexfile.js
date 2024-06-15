@@ -1,56 +1,23 @@
-// Update with your config settings.
+require('dotenv').config();
 
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
 module.exports = {
-
-  development: {
-    client: 'postgresql',
-    // connection: {
-    //   filename: './dev.postgresql'
-    // }
+    client: process.env.DB_CONNECTION,
     connection: {
-      // database: process.env.database,
-      // user:    process.env.user,
-      // password: process.env.password
-      database: "postgres",
-      user:    "postgres",
-      password: "0583264489"
-
-    },
-  },
-
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: process.env.database,
-      user:    process.env.user,
-      password: process.env.password
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        database: process.env.DB_DATABASE,
+        user: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD
     },
     pool: {
-      min: 2,
-      max: 10
+        min: 2,
+        max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
-    }
-  },
-
-  production: {
-    client: 'postgresql',
-    connection: {
-      database: process.env.database,
-      user:    process.env.user,
-      password:process.env.password
+        tableName: 'knex_migrations',
+        directory: __dirname + '/migrations'  // Adjust the path to your migrations folder
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
+    seeds: {
+        directory: __dirname + '/seeds'  // Adjust the path to your seeds folder
     }
-  }
-
 };
